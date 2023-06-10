@@ -83,7 +83,7 @@ def votos_titulo(titulo: str):
         if total_votos >= 2000:
             return {'titulo':titulo_filmacion, 'anio':anio_estreno, 'voto_total':total_votos, 'voto_promedio':promedio_votos}
         else:
-            return {'La pelicula '+(titulo)+' no cumple con el requisito de tener al menos 2000 valoraciones.'}
+            return {'mensaje': f'La película "{titulo_filmacion}" no cumple con el requisito de tener al menos 2000 valoraciones.'}
     else:
         return {'mensaje': 'No se encontro ninguna pelicula con ese titulo'}
     
