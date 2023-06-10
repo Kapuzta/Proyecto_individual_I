@@ -79,12 +79,12 @@ def votos_titulo(titulo: str):
         titulo_filmacion = pelicula['title'].iloc[0]
         anio_estreno = pelicula['release_year'].iloc[0]
         total_votos = int(pelicula['vote_count'].iloc[0])
-        promedio_votos = pelicula['vote_average'].iloc[0]
+        promedio_votos = float(pelicula['vote_average'].iloc[0])
         
         if total_votos >= 2000:
             return {'titulo':titulo_filmacion, 'anio':anio_estreno, 'voto_total':total_votos, 'voto_promedio':promedio_votos}
         else:
-            return {'mensaje': f'La película "{titulo_filmacion}" no cumple con el requisito de tener al menos 2000 valoraciones.'}
+            return {} #'mensaje': f'La película "{titulo_filmacion}" no cumple con el requisito de tener al menos 2000 valoraciones.
     else:
         return {'mensaje': 'No se encontro ninguna pelicula con ese titulo'}
     
