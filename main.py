@@ -59,14 +59,15 @@ def cantidad_filmaciones_dia(dia: str):
 # funcion 3
 @app.get('/score_titulo/{titulo}')
 def score_titulo(titulo: str):
-    pelicula = movies[movies['title'] == titulo]
+    titulo = titulo.lower()
+    pelicula = movies[movies['title'].str.lower() == titulo]
     if len(pelicula) > 0:
         titulo_filmacion = pelicula['title'].iloc[0]
         fecha_estreno = int(pelicula['release_year'].iloc[0])
         score = round(pelicula['popularity'].iloc[0], 2)
         return {'titulo':titulo_filmacion, 'anio':fecha_estreno, 'popularidad':score}
     else:
-        return {}
+        return {'mensaje': 'No se encontró ninguna película con ese título'}
     
 # funcion 4
 @app.get('/votos_titulo/{titulo}')
