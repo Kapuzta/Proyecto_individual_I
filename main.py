@@ -77,7 +77,7 @@ def votos_titulo(titulo: str):
     if len(pelicula) > 0:
         titulo_filmacion = pelicula['title'].iloc[0]
         anio_estreno = pelicula['release_year'].iloc[0]
-        total_votos = pelicula['vote_count'].iloc[0].astype(str)
+        total_votos = pelicula['vote_count'].iloc[0].astype(np.int64)
         promedio_votos = pelicula['vote_average'].iloc[0]
         
         if total_votos >= 2000:
