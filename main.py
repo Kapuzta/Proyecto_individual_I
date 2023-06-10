@@ -95,7 +95,8 @@ def votos_titulo(titulo: str):
 # funcion 5
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor):
-    peliculas_actor = movies[(movies['cast'] == nombre_actor) & (movies['crew'] != nombre_actor)]
+    nombre_actor = nombre_actor.lower()
+    peliculas_actor = movies[(movies['cast'].str.lower() == nombre_actor) & (movies['crew'] != nombre_actor)]
     cantidad_peliculas = len(peliculas_actor)
     exito = round(peliculas_actor['return'].sum(),2)
     promedio_retorno = round((exito / cantidad_peliculas),2)
