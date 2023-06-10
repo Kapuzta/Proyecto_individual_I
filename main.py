@@ -106,7 +106,8 @@ def get_actor(nombre_actor):
 # funcion 6
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director):
-    peliculas_director = movies[movies['crew'] == nombre_director]
+    nombre_director = nombre_director.lower()
+    peliculas_director = movies[movies['crew'].str.lower() == nombre_director]
     exito_director = round((peliculas_director['return'].sum()), 2)
     
     peliculas = []
