@@ -67,12 +67,13 @@ def score_titulo(titulo: str):
         score = round(pelicula['popularity'].iloc[0], 2)
         return {'titulo':titulo_filmacion, 'anio':fecha_estreno, 'popularidad':score}
     else:
-        return {'mensaje': 'No se encontró ninguna película con ese título'}
+        return {'mensaje': 'No se encontro ninguna pelicula con ese título'}
     
 # funcion 4
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo: str):
-    pelicula = movies[movies['title'] == titulo]
+    titulo = titulo.lower()
+    pelicula = movies[movies['title'].str.lower() == titulo]
     if len(pelicula) > 0:
         titulo_filmacion = pelicula['title'].iloc[0]
         anio_estreno = pelicula['release_year'].iloc[0]
@@ -82,9 +83,9 @@ def votos_titulo(titulo: str):
         if total_votos >= 2000:
             return {'titulo':titulo_filmacion, 'anio':anio_estreno, 'voto_total':total_votos, 'voto_promedio':promedio_votos}
         else:
-            return {'La película '+(titulo)+' no cumple con el requisito de tener al menos 2000 valoraciones.'}
+            return {'La pelicula '+(titulo)+' no cumple con el requisito de tener al menos 2000 valoraciones.'}
     else:
-        return {}
+        return {'mensaje': 'No se encontro ninguna pelicula con ese titulo'}
     
 # funcion 5
 @app.get('/get_actor/{nombre_actor}')
