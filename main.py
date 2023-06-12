@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 import pandas as pd
 import numpy as np
+import json 
+from sklearn.metrics.pairwise import cosine_similarity
+from fuzzywuzzy import fuzz
 
 app = FastAPI()
 
@@ -130,8 +133,30 @@ def get_director(nombre_director):
     return {'director':nombre_director, 'retorno_total_director':exito_director, 'peliculas':peliculas}
 
 # ML
-#@app.get('/recomendacion/{titulo}')
-#def recomendacion(titulo:str):
-#    '''Ingresas un nombre de pelicula y te recomienda las similares en una lista'''
-#    return {'lista recomendada': respuesta}
+@app.get('/recomendacion/{titulo}')
+def recomendacion(titulo: str):
+    titulo_minus = titulo.lower()
+    pelicula = movies[movies['title'].str.lower() == titulo_minus]
+    movies['genres'] = movies['genres'].fillna('')
+
+    genero_pelicula = pelicula['genres'].str.lower().str.split(',').explode().unique()
+    
+    filtered_movies = movies[movies['genres'].str.lower().str.split(',').apply(lambda x: any(genero in x for genero in genero_pelicula))]
+    filtered_movies = filtered_movies.head(5000)
+    filtered_movies['genre_match'] = filtered_movies['genres'].str.lower().str.split(',').apply(lambda x: sum(genero in x for genero in genero_pelicula))
+    filtered_movies = filtered_movies.sort_values('genre_match', ascending=False)
+    
+    filtered_movies['title_similarity'] = filtered_movies['title'].apply(lambda x: fuzz.ratio(x.lower(), titulo_minus))
+    filtered_movies = filtered_movies[filtered_movies['title_similarity'] >= 62]
+    
+    similarity_scores = cosine_similarity(filtered_movies[['popularity', 'vote_average']].fillna(0),
+                                          filtered_movies[['popularity', 'vote_average']].fillna(0),
+                                          dense_output=True)
+    similar_indices = similarity_scores[-1].argsort()[::-1][1:6]
+    
+    similar_movies = filtered_movies.iloc[similar_indices]
+    
+    recommended_movies = similar_movies['title'].values.tolist()
+    
+    return {'lista recomendada': recommended_movies}
 
