@@ -24,7 +24,8 @@ class desanidar:
             return None
         
 movies['belongs_to_collection'] = movies['belongs_to_collection'].apply(desanidar.convertir_a_str).apply(desanidar.extraer_nombres)
-movies['genres'] = movies['genres'].apply(desanidar.convertir_a_str).apply(desanidar.extraer_nombres)
+movies['genres'] = movies['genres'].apply(lambda x: ', '.join([row['name'] for row in json.loads(x.replace("'", "\""))]))
+movies['genres'] = movies['genres'].fillna('')
 movies['production_companies'] = movies['production_companies'].apply(desanidar.convertir_a_str).apply(desanidar.extraer_nombres)
 movies['production_countries'] = movies['production_countries'].apply(desanidar.convertir_a_str).apply(desanidar.extraer_nombres)
 movies['spoken_languages'] = movies['spoken_languages'].apply(desanidar.convertir_a_str).apply(desanidar.extraer_nombres)
