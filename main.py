@@ -33,7 +33,7 @@ dias_dict = {
     'miércoles': 2,
     'jueves': 3,
     'viernes': 4,
-    'sábado': 5,
+    'sabado': 5,
     'domingo': 6
 }
 
