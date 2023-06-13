@@ -150,8 +150,8 @@ def recomendacion(titulo: str):
     filtered_movies['title_similarity'] = filtered_movies['title'].apply(lambda x: fuzz.ratio(x.lower(), titulo_minus))
     filtered_movies = filtered_movies[filtered_movies['title_similarity'] >= 42]
     
-    similarity_scores = cosine_similarity(filtered_movies[['popularity', 'vote_average']].fillna(0),
-                                          filtered_movies[['popularity', 'vote_average']].fillna(0),
+    similarity_scores = cosine_similarity(filtered_movies[['popularity', 'vote_count']].fillna(0),
+                                          filtered_movies[['popularity', 'vote_count']].fillna(0),
                                           dense_output=True)
     similar_indices = similarity_scores[-1].argsort()[::-1][1:6]
     
