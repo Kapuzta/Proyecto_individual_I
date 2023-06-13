@@ -16,4 +16,4 @@ En este repositorio encontraremos el dataset [movies_credits_dataset.csv](https:
   - video
 
 ## Documento de Pandas Profiling para EDA
-  - #### [Reporte](https://drive.google.com/file/d/1YfNTYqnsvff3TOyV8SReJUnGUfDD6NnV/view?usp=drive_link)
+  - #### [Descarga el Archivo](https://drive.google.com/file/d/1YfNTYqnsvff3TOyV8SReJUnGUfDD6NnV/view?usp=drive_link)
