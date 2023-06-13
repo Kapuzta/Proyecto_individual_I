@@ -104,7 +104,10 @@ def get_actor(nombre_actor):
     peliculas_actor = movies[(movies['cast'].str.lower() == nombre_actor) & (movies['crew'] != nombre_actor)]
     cantidad_peliculas = len(peliculas_actor)
     exito = round(peliculas_actor['return'].sum(),2)
-    promedio_retorno = round((exito / cantidad_peliculas),2)
+    if cantidad_peliculas == 0:
+        return {'el actor no se encuentra en la lista'}  
+    else:
+        promedio_retorno = round((exito / cantidad_peliculas),2)
     
     return {'actor':nombre_actor, 'cantidad_filmaciones':cantidad_peliculas, 'retorno_total':exito, 'retorno_promedio':promedio_retorno}
 
