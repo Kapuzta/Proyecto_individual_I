@@ -8,6 +8,7 @@ from fuzzywuzzy import fuzz
 app = FastAPI()
 
 movies = pd.read_csv('movies_credits_dataset.csv', parse_dates=['release_date'], low_memory=False)
+movies = movies.drop_duplicates()
 
 #diccionario para que los meses sean en español
 meses_dict = {
@@ -135,7 +136,6 @@ def get_director(nombre_director):
 # ML
 @app.get('/recomendacion/{titulo}')
 def recomendacion(titulo: str):
-    movies = movies.drop_duplicates()
     titulo_minus = titulo.lower()
     pelicula = movies[movies['title'].str.lower() == titulo_minus]
     movies['genres'] = movies['genres'].fillna('')
