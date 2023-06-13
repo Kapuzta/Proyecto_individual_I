@@ -77,7 +77,8 @@ def score_titulo(titulo: str):
 # funcion 4
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo: str):
-    pelicula = movies[movies['title'] == titulo]
+    titulo = titulo.lower()
+    pelicula = movies[movies['title'].str.lower() == titulo]
     
     if len(pelicula) > 0:
         titulo_filmacion = pelicula['title'].iloc[0]
