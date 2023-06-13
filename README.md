@@ -13,7 +13,7 @@ En este repositorio encontraremos el dataset [movies_credits_dataset.csv](https:
   - [/recomendacion/"titulo"](https://movies-xvg8.onrender.com/recomendacion/) >>> Ingresas un nombre de pelicula y te recomienda las 5 similares en una lista
 
 ## Tambien puedes ver un video probando la aplicación y mostrando el codigo
-  - video
+  - [video](https://youtu.be/2xzgvQpLQfo)
 
 ## Documento de Pandas Profiling para EDA
   - #### [Descarga el Archivo](https://drive.google.com/file/d/1YfNTYqnsvff3TOyV8SReJUnGUfDD6NnV/view?usp=drive_link)
