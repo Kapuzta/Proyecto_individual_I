@@ -135,6 +135,7 @@ def get_director(nombre_director):
 # ML
 @app.get('/recomendacion/{titulo}')
 def recomendacion(titulo: str):
+    movies = movies.drop_duplicates()
     titulo_minus = titulo.lower()
     pelicula = movies[movies['title'].str.lower() == titulo_minus]
     movies['genres'] = movies['genres'].fillna('')
